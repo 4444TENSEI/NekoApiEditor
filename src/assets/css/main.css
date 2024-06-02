@@ -1,0 +1,11 @@
+@font-face {
+    font-family: myFont;
+    src: url(https://img.crowya.com/font/FZFWZZAY.woff2) format('woff2');
+    font-display: swap;
+}
+
+/* 全局字体 */
+* {
+    font-family: myFont;
+}
+
