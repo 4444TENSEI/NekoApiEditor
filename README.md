@@ -3,17 +3,13 @@
 2.pnpm dev
 3.pnpm build
 
-
 部署后端
 1.导入server/main.sql数据库
 2.修改server/config.php的数据库连接信息
 
-
 前端结构
 1.页面整体写到了src/App.vue作为单页网站，使用provide进行跨组件共享函数到components/NekoFrame.vue这个框架中。
 2.components/NekoFrame.vue:框架，包含顶栏侧边栏和操作按钮。
-3.项目根目录的.env的配置链接仅用于无自定义API链接的版本，对于旧版本已停止更新。将继续更新支持自定义的后端json接口地址的新版本。
-
 
 后端结构：
 config.php：配置文件

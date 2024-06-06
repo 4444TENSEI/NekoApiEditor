@@ -1,11 +1,11 @@
 // Styles
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
- 
+
 // Vuetify
 import { createVuetify } from 'vuetify'
- 
- 
+
+
 const Theme1 = {
   dark: true, // 您可以根据需要设置 true 或 false
   colors: {
@@ -21,15 +21,17 @@ const Theme1 = {
 };
 
 
- 
+
 export default createVuetify(
+
   // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
-    {
-        theme: {
-            defaultTheme: 'Theme1',
-            themes: {
-                Theme1,
-            }
-        }
+  {
+
+    theme: {
+      defaultTheme: 'Theme1',
+      themes: {
+        Theme1,
+      }
     }
+  }
 )
